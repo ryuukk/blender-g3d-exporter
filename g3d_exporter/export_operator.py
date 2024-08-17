@@ -9,7 +9,7 @@ from bpy.props import BoolProperty, IntProperty, EnumProperty
 from bpy.types import Operator
 
 import shutil
-
+from pathlib import Path
 from g3d_exporter import builder
 from g3d_exporter.builder import ModelOptions
 from g3d_exporter.model import G3dModel, G3dModelInfo

@@ -41,6 +41,9 @@ blender_addon_versions = [
     "3.4",
     "3.5",
     "3.6",  # lts
+
+    # API breaking change
+    "4.2",  # lts
 ]
 
 def install():

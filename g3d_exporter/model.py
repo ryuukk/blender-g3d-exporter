@@ -3,11 +3,13 @@ import typing
 
 import bpy
 
-from typing import Dict, Tuple
+
+
+from typing import Dict, Tuple, Any, List
 
 from g3d_exporter.common import *
 from g3d_exporter.profiler import profile
-
+from mathutils import Euler, Matrix
 
 class GMeshPart(object):
     def __init__(self, id: str, type: str):
@@ -38,6 +40,13 @@ class VertexFlag(object):
 
     def __str__(self):
         return f"{self.name}/{self.length}"
+
+    # TODO: FIXME: this wasn't needed before, now it complains
+    def to_dict(self) -> Dict[str, Any]:
+        result = dict()
+        result['name'] = self.name
+        result['length'] = self.length
+        return result
 
 
 class GMesh(object):

@@ -7,11 +7,11 @@ import bmesh
 import typing
 import bpy
 
-from mathutils import Euler
+from mathutils import Euler, Matrix, Vector, Quaternion
 from bpy_extras.node_shader_utils import PrincipledBSDFWrapper
 from bpy_extras.node_shader_utils import ShaderImageTextureWrapper
 
-from typing import Tuple, Set, Dict
+from typing import Tuple, Set, Dict, List, Union
 import os
 
 from g3d_exporter import model
@@ -866,7 +866,7 @@ class ArmatureNodeBuilder(NodeBuilder):
 
         anim_bone = model.GBoneAnimation(b_bone.name)
 
-        if b_bone.name not in action.groups:
+        if len(action.groups) == 0:
             return anim_bone
 
         bone_action = BoneAction(b_bone, action)
@@ -1119,7 +1119,8 @@ class BoneAction(object):
         self.quat_curves: List[bpy.types.FCurve] = []
         self.euler_curves: List[bpy.types.FCurve] = []
 
-        for curve in action.groups[b_bone.name].channels:
+        # TODO: is it always "Armature"?
+        for curve in action.groups["Armature"].channels:
             # TODO respect existing but disabled curves?
             if curve.data_path.endswith('location'):
                 self.loc_curves.append(curve)
